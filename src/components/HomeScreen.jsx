@@ -1,5 +1,5 @@
 import React from 'react';
-import NewsletterSignup from './NewsletterSignup';
+import MoodTracker from './MoodTracker';
 import { MASTER_PRINCIPLES } from '../data/masterPrinciples';
 import { LOCATIONS } from '../data/scenarios';
 
@@ -9,7 +9,8 @@ const HomeScreen = ({
   onViewPrinciples,
   onPersonalStory,
   completedLocations,
-  learnedPrinciples
+  learnedPrinciples,
+  onMathVenture
 }) => {
   return (
     <div className="slide-in">
@@ -49,9 +50,11 @@ const HomeScreen = ({
         </div>
       </div>
 
+
+
       {/* Mode Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div className="bg-white rounded-2xl p-6 soft-shadow">
+        <div id="practice-section" className="bg-white rounded-2xl p-6 soft-shadow">
           <div className="text-center mb-4">
             <div className="text-5xl mb-2">📚</div>
             <h3 className="text-xl font-bold text-gray-800">Practice Mode</h3>
@@ -124,8 +127,28 @@ const HomeScreen = ({
         </div>
       </div>
 
+      {/* Math Venture Entry */}
+      <div id="math-venture-section" className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-2xl p-6 soft-shadow mb-6 border-2 border-teal-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-xl font-bold text-teal-800 flex items-center gap-2">
+              <span className="text-3xl">🚂</span> Math Venture
+            </h3>
+            <p className="text-teal-600 text-sm mt-1">Play fun games to learn counting and patterns!</p>
+          </div>
+          <button
+            onClick={onMathVenture}
+            className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-xl shadow-md transition-all transform hover:scale-105"
+          >
+            Play Now 🎮
+          </button>
+        </div>
+      </div>
+
       {/* Class Component Form */}
-      <NewsletterSignup />
+      <div id="feedback-section">
+        <MoodTracker />
+      </div>
     </div>
   );
 };

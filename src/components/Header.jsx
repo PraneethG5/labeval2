@@ -15,7 +15,7 @@ const Header = ({ stars, collectedTools, learnedPrinciples }) => {
           </div>
           <div className="text-center">
             <div className="text-2xl">🛠️</div>
-            <div className="text-sm text-gray-600">{collectedTools.length} Tools</div>
+            <div className="text-sm text-gray-600">{collectedTools.length} Super Skills</div>
           </div>
           <div className="text-center">
             <div className="text-2xl">💡</div>
@@ -23,10 +23,10 @@ const Header = ({ stars, collectedTools, learnedPrinciples }) => {
           </div>
         </div>
       </div>
-      
+
       {collectedTools.length > 0 && (
         <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-sm text-gray-600 mb-2">Your Social Tools:</p>
+          <p className="text-sm text-gray-600 mb-2">Your Super Skills:</p>
           <div className="flex flex-wrap gap-2">
             {collectedTools.map((tool, idx) => (
               <span key={idx} className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium star-collect">

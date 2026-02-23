@@ -57,7 +57,7 @@ const FeedbackScreen = ({ currentFeedback, onContinue }) => {
 
         {currentFeedback.isCorrect && currentFeedback.tool && (
           <div className="bg-green-50 rounded-xl p-6 mb-6 border-2 border-green-200">
-            <p className="text-center text-green-700 font-bold mb-2">🎁 New Tool Unlocked!</p>
+            <p className="text-center text-green-700 font-bold mb-2">🎁 New Super Skill Unlocked!</p>
             <p className="text-center text-2xl font-bold text-green-600">{currentFeedback.tool}</p>
           </div>
         )}

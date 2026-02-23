@@ -8,9 +8,12 @@ import CompleteScreen from './components/CompleteScreen';
 import PersonalStoryScreen from './components/PersonalStoryScreen';
 import { LOCATIONS } from './data/scenarios';
 import { UNEXPECTED_SCENARIOS } from './data/unexpectedScenarios';
+import MathVentureContainer from './components/MathVenture/MathVentureContainer';
+import ProductPage from './components/ProductPage';
+import NavBar from './components/NavBar';
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState('home'); 
+  const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [currentScenario, setCurrentScenario] = useState(null);
   const [scenarioIndex, setScenarioIndex] = useState(0);
@@ -46,10 +49,14 @@ function App() {
     setCurrentScreen('personalStory');
   };
 
+  const handleMathVenture = () => {
+    setCurrentScreen('mathVenture');
+  };
+
   const handleChoice = (choice) => {
     setCurrentFeedback(choice);
     setShowFeedback(true);
-    
+
     if (choice.isCorrect) {
       setStars(prev => prev + 1);
       if (choice.tool && !collectedTools.includes(choice.tool)) {
@@ -107,44 +114,79 @@ function App() {
     setMode('guided');
     setShowFeedback(false);
     setCurrentFeedback(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigation = (destination) => {
+    if (destination === 'home') {
+      setCurrentScreen('home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (destination === 'practice') {
+      setCurrentScreen('home');
+      setTimeout(() => {
+        const element = document.getElementById('practice-section');
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else if (destination === 'math') {
+      setCurrentScreen('home');
+      setTimeout(() => {
+        const element = document.getElementById('math-venture-section');
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else if (destination === 'feedback') {
+      setCurrentScreen('home');
+      setTimeout(() => {
+        const element = document.getElementById('feedback-section');
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else if (destination === 'product') {
+      setCurrentScreen('product');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8 pt-20">
+      <NavBar onNavigate={handleNavigation} />
       <div className="max-w-4xl mx-auto">
-        <Header 
-          stars={stars} 
-          collectedTools={collectedTools} 
-          learnedPrinciples={learnedPrinciples} 
+        <Header
+          stars={stars}
+          collectedTools={collectedTools}
+          learnedPrinciples={learnedPrinciples}
         />
 
         {currentScreen === 'home' && (
-          <HomeScreen 
+          <HomeScreen
             onLocationSelect={handleLocationSelect}
             onUnexpectedMode={handleUnexpectedMode}
             onViewPrinciples={handleViewPrinciples}
             onPersonalStory={handlePersonalStory}
             completedLocations={completedLocations}
             learnedPrinciples={learnedPrinciples}
+            onMathVenture={handleMathVenture}
           />
         )}
 
+        {currentScreen === 'mathVenture' && (
+          <MathVentureContainer onBack={handleBackToHome} />
+        )}
+
         {currentScreen === 'principles' && (
-          <PrinciplesScreen 
+          <PrinciplesScreen
             learnedPrinciples={learnedPrinciples}
             onBack={handleBackToHome}
           />
         )}
 
         {currentScreen === 'personalStory' && (
-          <PersonalStoryScreen 
+          <PersonalStoryScreen
             learnedPrinciples={learnedPrinciples}
             onBack={handleBackToHome}
           />
         )}
 
         {currentScreen === 'scenario' && !showFeedback && currentScenario && (
-          <ScenarioScreen 
+          <ScenarioScreen
             mode={mode}
             selectedLocation={selectedLocation}
             scenarioIndex={scenarioIndex}
@@ -156,14 +198,18 @@ function App() {
         )}
 
         {showFeedback && currentFeedback && (
-          <FeedbackScreen 
+          <FeedbackScreen
             currentFeedback={currentFeedback}
             onContinue={handleContinue}
           />
         )}
 
+        {currentScreen === 'product' && (
+          <ProductPage />
+        )}
+
         {currentScreen === 'complete' && (
-          <CompleteScreen 
+          <CompleteScreen
             mode={mode}
             selectedLocation={selectedLocation}
             learnedPrinciples={learnedPrinciples}
